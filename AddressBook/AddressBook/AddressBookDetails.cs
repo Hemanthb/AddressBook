@@ -9,7 +9,7 @@ namespace AddressBook
     public class AddressBookDetails
     {
         Program program = new Program();
-
+        Dictionary<string, List<ContactPerson>> multipleAddressBook = new Dictionary<string, List<ContactPerson>>();
         public void CreateContacts()
         {
             ContactPerson contact = new ContactPerson();
@@ -45,7 +45,7 @@ namespace AddressBook
         {
             Console.WriteLine("Enter First Name of a person to edit details: ");
             string firstName = Console.ReadLine();
-            ContactPerson editContact = program.personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName);
+            ContactPerson editContact = program.personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName.ToLower());
             
             if(editContact != null)
             {
@@ -109,8 +109,10 @@ namespace AddressBook
         public void DeleteContact()
         {
             Console.WriteLine("Enter First Name of person to delete details: ");
+
             string firstName = Console.ReadLine();
-            ContactPerson deleteContact = program.personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName);
+
+            ContactPerson deleteContact = program.personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName.ToLower());
             if (deleteContact!=null)
             {
                 Console.WriteLine("Are you sure you want to remove this person from your address book? (Y/N)" + deleteContact.FirstName);
@@ -125,6 +127,78 @@ namespace AddressBook
                 Console.WriteLine("No Data Exist!!");
             }
             
+        }
+
+        public void AddMultipleContacts()
+        {
+            Console.WriteLine("Enter the number of contacts you want to add:");
+            int addContacts = Convert.ToInt32(Console.ReadLine());
+            while (addContacts > 0)
+            {
+                CreateContacts();
+                addContacts--;
+            }
+
+        }
+
+        public void AddMultipleAddressBooks()
+        {
+            //AddressBookDetails details = new AddressBookDetails();
+            Console.WriteLine("Enter the number of address book you want to add: ");
+            int noOfBooks = Convert.ToInt32(Console.ReadLine());
+            while (noOfBooks > 0)
+            {
+                Console.WriteLine("Enter group name:");
+                string groupName = Console.ReadLine();
+                
+                AddMultipleContacts();
+                multipleAddressBook.Add(groupName, program.personDetails);
+                //program.personDetails.Add(person_Details);
+                /*if (multipleAddressBook.ContainsKey(groupName))
+                {
+                    multipleAddressBook[groupName].Add(program.personDetails);
+                }
+                else
+                {
+                    multipleAddressBook.Add(groupName, new List<ContactPerson> { program.personDetails });
+                }*/
+                
+                noOfBooks--;
+            }
+            foreach (var key in multipleAddressBook.Keys)
+            {
+                System.Console.WriteLine("{0}: {1}", key, String.Join(", ", multipleAddressBook[key].ToArray().ToString));
+            }
+            foreach (string key in multipleAddressBook.Keys)
+            {
+                Console.WriteLine("Details under category -- "+key);
+                Console.WriteLine();
+                //multipleAddressBook[key].ToList().ForEach(x => Console.WriteLine(x));
+                foreach (ContactPerson values in multipleAddressBook[key])
+                {
+                    int i = 1;
+                    Console.WriteLine(i);
+                    Console.WriteLine(values.FirstName);
+                    Console.WriteLine(values.LastName);
+                    Console.WriteLine();
+                    i += 1;
+                }
+            }
+        }
+        public void DisplayDetails()
+        {
+            foreach (ContactPerson person in program.personDetails)
+            {
+                Console.WriteLine("Contact Details of - " + person.FirstName);
+                Console.WriteLine("Last Name          -" + person.LastName);
+                Console.WriteLine("Address            -" + person.Address);
+                Console.WriteLine("City               -" + person.City);
+                Console.WriteLine("State              -" + person.State);
+                Console.WriteLine("Zipcode            -" + person.PostalCode);
+                Console.WriteLine("Phone No           -" + person.PhoneNo);
+                Console.WriteLine("Email Id           -" + person.Email);
+                Console.WriteLine();
+            }
         }
 
     }
