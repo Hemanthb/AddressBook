@@ -9,8 +9,9 @@ namespace AddressBook {
             AddressBook.ContactPerson person = new AddressBook.ContactPerson();
 
             AddressBook.AddressBookDetails details = new AddressBook.AddressBookDetails();
-            details.createContacts();
-            details.editContacts();
+            details.CreateContacts();
+            details.EditContacts();
+            details.DeleteContact();
 
         }
     }

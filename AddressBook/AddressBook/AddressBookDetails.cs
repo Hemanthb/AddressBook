@@ -9,7 +9,8 @@ namespace AddressBook
     public class AddressBookDetails
     {
         Program program = new Program();
-        public void createContacts()
+
+        public void CreateContacts()
         {
             ContactPerson contact = new ContactPerson();
             Console.WriteLine("Enter First Name: ");
@@ -40,64 +41,90 @@ namespace AddressBook
 
         }
 
-        public void editContacts()
+        public void EditContacts()
         {
             Console.WriteLine("Enter First Name of a person to edit details: ");
             string firstName = Console.ReadLine();
-
-            foreach (ContactPerson contact in program.personDetails)
+            ContactPerson editContact = program.personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName);
+            
+            if(editContact != null)
             {
-                if (contact.FirstName.ToLower().Equals(firstName.ToLower()))
+                string opt = "y";
+                while(opt == "y")
                 {
-                    string opt = "y";
-                    while(opt == "y"){
-                        Console.WriteLine("Enter the field you want to edit:\n1.First Name\n2.last Name\n3.Address\n4.city\n5.state\n6.zip\n7.Phone No.\n8.Email");
-                        Console.WriteLine("Enter your choice:");
-                        int choice = Convert.ToInt32(Console.ReadLine());
-                        switch (choice)
-                        {
-                            case 1:
-                                Console.WriteLine("Enter First Name to update:");
-                                contact.FirstName = Convert.ToString(Console.ReadLine());
-                                break;
-                            case 2:
-                                Console.WriteLine("Enter Last Name to update:");
-                                contact.LastName = Convert.ToString(Console.ReadLine());
-                                break;
-                            case 3:
-                                Console.WriteLine("Enter Address to update:");
-                                contact.Address = Convert.ToString(Console.ReadLine());
-                                break;
-                            case 4:
-                                Console.WriteLine("Enter City to update:");
-                                contact.City = Convert.ToString(Console.ReadLine());
-                                break;
-                            case 5:
-                                Console.WriteLine("Enter State to update:");
-                                contact.State = Convert.ToString(Console.ReadLine());
-                                break;
-                            case 6:
-                                Console.WriteLine("Enter Zip code to update:");
-                                contact.PostalCode = Console.ReadLine();
-                                break;
-                            case 7:
-                                Console.WriteLine("Enter Phone to update:");
-                                contact.PhoneNo = Console.ReadLine();
-                                break;
-                            case 8:
-                                Console.WriteLine("Enter Email to update:");
-                                contact.Email = Console.ReadLine();
-                                break;
-                            default:
-                                Console.WriteLine("Invalid option:");
-                                break;
-                        }
-                        Console.WriteLine("Enter 'y' to edit any other details or 'n' to exit");
-                        opt = Console.ReadLine();
+
+                    Console.WriteLine("Enter the field you want to edit:\n1.First Name\n2.last Name\n3.Address\n4.city\n5.state\n6.zip\n7.Phone No.\n8.Email");
+                    Console.WriteLine("Enter your choice:");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("Enter First Name to update:");
+                            editContact.FirstName = Convert.ToString(Console.ReadLine());
+                            break;
+                        case 2:
+                            Console.WriteLine("Enter Last Name to update:");
+                            editContact.LastName = Convert.ToString(Console.ReadLine());
+                            break;
+                        case 3:
+                            Console.WriteLine("Enter Address to update:");
+                            editContact.Address = Convert.ToString(Console.ReadLine());
+                            break;
+                        case 4:
+                            Console.WriteLine("Enter City to update:");
+                            editContact.City = Convert.ToString(Console.ReadLine());
+                            break;
+                        case 5:
+                            Console.WriteLine("Enter State to update:");
+                            editContact.State = Convert.ToString(Console.ReadLine());
+                            break;
+                        case 6:
+                            Console.WriteLine("Enter Zip code to update:");
+                            editContact.PostalCode = Console.ReadLine();
+                            break;
+                        case 7:
+                            Console.WriteLine("Enter Phone to update:");
+                            editContact.PhoneNo = Console.ReadLine();
+                            break;
+                        case 8:
+                            Console.WriteLine("Enter Email to update:");
+                            editContact.Email = Console.ReadLine();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option:");
+                            break;
                     }
+                    Console.WriteLine("Enter 'y' to edit any other details or 'n' to exit");
+                    opt = Console.ReadLine();
                 }
+
+            }
+            else
+            {
+                Console.WriteLine("No Data Exist!!");
             }
 
+        }
+
+        public void DeleteContact()
+        {
+            Console.WriteLine("Enter First Name of person to delete details: ");
+            string firstName = Console.ReadLine();
+            ContactPerson deleteContact = program.personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName);
+            if (deleteContact!=null)
+            {
+                Console.WriteLine("Are you sure you want to remove this person from your address book? (Y/N)" + deleteContact.FirstName);
+
+                if (Console.ReadKey().Key == ConsoleKey.Y)
+                {
+                    program.personDetails.Remove(deleteContact);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Data Exist!!");
+            }
+            
         }
 
     }
