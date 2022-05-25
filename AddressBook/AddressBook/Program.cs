@@ -10,6 +10,7 @@ namespace AddressBook {
 
             AddressBook.AddressBookDetails details = new AddressBook.AddressBookDetails();
             details.createContacts();
+            details.editContacts();
 
         }
     }
