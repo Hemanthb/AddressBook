@@ -45,6 +45,9 @@ namespace AddressBook {
                     case 8:
                         details.DisplayAddressBookDetails();
                         break;
+                    case 9:
+                        details.CreateCityAndStateDictionary();
+                        break;
                     default:
                         Console.Write("Enter a valid option.\n");
                         break;

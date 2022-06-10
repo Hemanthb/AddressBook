@@ -11,6 +11,8 @@ namespace AddressBook
         ContactPerson cp = new ContactPerson();
         List<ContactPerson> personDetails = new List<ContactPerson>();
         Dictionary<string, List<ContactPerson>> multipleAddressBook = new Dictionary<string, List<ContactPerson>>();
+        Dictionary<string, List<string>> cityAndPersons = new Dictionary<string, List<string>>();
+        Dictionary<string, List<string>> stateAndPersons = new Dictionary<string, List<string>>();
         public void CreateContacts(ContactPerson contact)
         {
             
@@ -215,6 +217,54 @@ namespace AddressBook
                     }
 
                 }
+            }
+        }
+
+        public void CreateCityAndStateDictionary()
+        {
+
+            foreach (var key in multipleAddressBook.Keys)
+            {
+
+                foreach (var item in multipleAddressBook[key])
+                {
+                    //Populates a dictionary with key as city and value as contact names 
+                    if (cityAndPersons.ContainsKey(item.City))
+                    {
+                        cityAndPersons[item.City].Add(item.FirstName);
+                    }
+                    else
+                    {
+
+                        cityAndPersons.Add(item.City, new List<string>() { item.FirstName });
+                    }
+                    //Populates a dictionary with key as state and value as contact names
+                    if (stateAndPersons.ContainsKey(item.State))
+                    {
+                        stateAndPersons[item.State].Add(item.FirstName);
+                    }
+                    else
+                    {
+
+                        stateAndPersons.Add(item.State, new List<string>() { item.FirstName });
+                    }
+
+                }
+            }
+
+            foreach (var key in cityAndPersons.Keys)
+            {
+                Console.WriteLine("Details Of people belonging to City :-->> " + key);
+                Console.WriteLine();
+                int count = 0;
+                cityAndPersons[key].ForEach(x=>Console.WriteLine(x));
+                
+            }
+            foreach (var key in stateAndPersons.Keys)
+            {
+                Console.WriteLine("Details Of people belonging to City :-->> " + key);
+                Console.WriteLine();
+                stateAndPersons[key].ForEach(x => Console.WriteLine(x));
             }
         }
         public void DisplayDetails()
