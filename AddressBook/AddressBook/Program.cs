@@ -2,7 +2,7 @@
 namespace AddressBook {
     public class Program
     {
-        public List<ContactPerson> personDetails = new List<ContactPerson>();
+        //public List<ContactPerson> personDetails = new List<ContactPerson>();
 
         public static void Main(String[] args)
         {
@@ -19,7 +19,7 @@ namespace AddressBook {
                 switch (choice)
                 {
                     case 1:
-                        details.CreateContacts();
+                        details.CreateContacts(person);
                         break;
                     case 2:
                         details.EditContacts();
