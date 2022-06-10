@@ -13,7 +13,8 @@ namespace AddressBook {
             while (yesOrNo == "y")
             {
                 Console.WriteLine("1.Create Contact\n2.Edit Contact\n3.Delete Contact\n" +
-                    "4.Display Contacts\n5.Add Multiple Contacts\n6.Add Multiple Books\n");
+                    "4.Display Contacts\n5.Add Multiple Contacts\n6.Add Multiple Books\n7.Search Contact By City/State\n" +
+                    "8.Display Address Book\n");
                 Console.WriteLine("Enter your choice:");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
@@ -35,6 +36,14 @@ namespace AddressBook {
                         break;
                     case 6:
                         details.AddMultipleAddressBooks();
+                        break;
+                    case 7:
+                        Console.WriteLine("Enter a city name or a state name to obtain contact details");
+                        string cityOrState = Console.ReadLine();
+                        details.SearchContacts(cityOrState);
+                        break;
+                    case 8:
+                        details.DisplayAddressBookDetails();
                         break;
                     default:
                         Console.Write("Enter a valid option.\n");

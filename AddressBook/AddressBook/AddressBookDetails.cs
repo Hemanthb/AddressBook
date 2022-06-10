@@ -181,6 +181,42 @@ namespace AddressBook
             DisplayAddressBookDetails();
             
         }
+
+        public void SearchContacts(string searchValue)
+        {
+            foreach(var contactPerson in multipleAddressBook.Values)
+            {
+                 
+                List<ContactPerson> personByCity = contactPerson.FindAll(x=>x.City.ToLower()==searchValue.ToLower());
+                if(personByCity.Count()==0)
+                {
+
+                    List<ContactPerson> personByState = contactPerson.FindAll(x => x.State.ToLower() == searchValue.ToLower());
+                    if(personByState == null)
+                    {
+                        Console.WriteLine("No Contact Details Exist for the given city/state -- {0}", searchValue);
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("+++++++ Details of People from state of {0} +++++++",searchValue);
+                        foreach(ContactPerson person in personByState)
+                        {
+                            Console.WriteLine("First Name: " + person.FirstName + " Last Name: " + person.LastName);
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("+++++++ Details of People from City of {0} +++++++", searchValue);
+                    foreach (ContactPerson person in personByCity)
+                    {
+                        Console.WriteLine("First Name: " + person.FirstName + " Last Name: " + person.LastName);
+                    }
+
+                }
+            }
+        }
         public void DisplayDetails()
         {
             foreach (ContactPerson person in personDetails)
