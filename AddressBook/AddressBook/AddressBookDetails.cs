@@ -40,22 +40,7 @@ namespace AddressBook
 
             //Checks Whether the contact exist already by searching for the first name
             ContactPerson cp = personDetails.FirstOrDefault(x => x.Equals(contact));
-            //(personDetails.ForEach(x => x.Equals(contact)))
-            /* 
-            { Console.WriteLine("Contact Exist Already in Address Book!"); };
             
-            foreach(ContactPerson person in personDetails)
-            {
-                if (person.Equals(contact))
-                {
-                    Console.WriteLine("Contact Exist Already in Address Book!");
-                }
-                else
-                {
-                    personDetails.Add(contact);
-                }
-            }*/
-            //if(foreach(ContactPerson conPerson in personDetails.FirstOrDefault(x=>x.Equals(contact))))
             if(cp == null)
             {
                 personDetails.Add(contact);
