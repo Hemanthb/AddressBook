@@ -270,18 +270,27 @@ namespace AddressBook
 
         public void CountByCityAndState(string searchItem)
         {
-            int value = cityAndPersons.Count(x=>x.Equals(searchItem));
-            Console.WriteLine("Count of Contacts in city - " + searchItem + " ---> " + value);
             if (cityAndPersons.ContainsKey(searchItem))
             {
-                int val = cityAndPersons[searchItem].Count();
-                Console.WriteLine("Count of Contacts in city - " + searchItem + " ---> " + val);
+                Func<int,int> count = x =>
+                {
+                    foreach (var value in cityAndPersons[searchItem])
+                        x += 1;
+                    return x;
+                };
+                Console.WriteLine("Count of Contacts in city - " + searchItem + " ---> " + count(0));
+                
             }
             if (stateAndPersons.ContainsKey(searchItem))
             {
                 
-                int val = stateAndPersons[searchItem].Count();
-                Console.WriteLine("Count of Contacts in the state - " + searchItem + " ---> " + val);
+                Func<int, int> count = x =>
+                {
+                    foreach (var value in stateAndPersons[searchItem])
+                        x += 1;
+                    return x;
+                };
+                Console.WriteLine("Count of Contacts in state - " + searchItem + " ---> " + count(0));
             }
 
         }
