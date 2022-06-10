@@ -8,7 +8,7 @@ namespace AddressBook
 {
     public class AddressBookDetails
     {
-        Program program = new Program();
+        ContactPerson cp = new ContactPerson();
         List<ContactPerson> personDetails = new List<ContactPerson>();
         Dictionary<string, List<ContactPerson>> multipleAddressBook = new Dictionary<string, List<ContactPerson>>();
         public void CreateContacts(ContactPerson contact)
@@ -37,10 +37,37 @@ namespace AddressBook
 
             Console.WriteLine("Enter Email: ");
             contact.Email = Console.ReadLine();
-            personDetails.Add(contact);
+
+            //Checks Whether the contact exist already by searching for the first name
+            ContactPerson cp = personDetails.FirstOrDefault(x => x.Equals(contact));
+            //(personDetails.ForEach(x => x.Equals(contact)))
+            /* 
+            { Console.WriteLine("Contact Exist Already in Address Book!"); };
+            
+            foreach(ContactPerson person in personDetails)
+            {
+                if (person.Equals(contact))
+                {
+                    Console.WriteLine("Contact Exist Already in Address Book!");
+                }
+                else
+                {
+                    personDetails.Add(contact);
+                }
+            }*/
+            //if(foreach(ContactPerson conPerson in personDetails.FirstOrDefault(x=>x.Equals(contact))))
+            if(cp == null)
+            {
+                personDetails.Add(contact);
+            }
+            else
+            {
+                Console.WriteLine("Contact Exist Already in Address Book!");
+            }
 
         }
 
+       
         public void EditContacts()
         {
             Console.WriteLine("Enter First Name of a person to edit details: ");

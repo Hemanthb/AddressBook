@@ -16,5 +16,20 @@ namespace AddressBook
         public string PostalCode { get; set; }
         public string PhoneNo { get; set; }
         public string Email { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is ContactPerson))
+            {
+                return false;
+            }
+            return this.FirstName == ((ContactPerson)obj).FirstName;
+        }
     }
+    
+
 }
