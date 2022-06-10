@@ -262,10 +262,28 @@ namespace AddressBook
             }
             foreach (var key in stateAndPersons.Keys)
             {
-                Console.WriteLine("Details Of people belonging to City :-->> " + key);
+                Console.WriteLine("Details Of people belonging to State :-->> " + key);
                 Console.WriteLine();
                 stateAndPersons[key].ForEach(x => Console.WriteLine(x));
             }
+        }
+
+        public void CountByCityAndState(string searchItem)
+        {
+            int value = cityAndPersons.Count(x=>x.Equals(searchItem));
+            Console.WriteLine("Count of Contacts in city - " + searchItem + " ---> " + value);
+            if (cityAndPersons.ContainsKey(searchItem))
+            {
+                int val = cityAndPersons[searchItem].Count();
+                Console.WriteLine("Count of Contacts in city - " + searchItem + " ---> " + val);
+            }
+            if (stateAndPersons.ContainsKey(searchItem))
+            {
+                
+                int val = stateAndPersons[searchItem].Count();
+                Console.WriteLine("Count of Contacts in the state - " + searchItem + " ---> " + val);
+            }
+
         }
         public void DisplayDetails()
         {

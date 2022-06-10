@@ -14,7 +14,7 @@ namespace AddressBook {
             {
                 Console.WriteLine("1.Create Contact\n2.Edit Contact\n3.Delete Contact\n" +
                     "4.Display Contacts\n5.Add Multiple Contacts\n6.Add Multiple Books\n7.Search Contact By City/State\n" +
-                    "8.Display Address Book\n");
+                    "8.Display Address Book\n9.Create City & State Dictionaries\n10.Count of contacts city/state wise\n");
                 Console.WriteLine("Enter your choice:");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
@@ -47,6 +47,11 @@ namespace AddressBook {
                         break;
                     case 9:
                         details.CreateCityAndStateDictionary();
+                        break;
+                    case 10:
+                        Console.WriteLine("Enter a city name or a state name to obtain contact details");
+                        string cityState = Console.ReadLine();
+                        details.CountByCityAndState(cityState);
                         break;
                     default:
                         Console.Write("Enter a valid option.\n");
