@@ -332,5 +332,41 @@ namespace AddressBook
             }
         }
 
+        public void WriteToFile()
+        {
+            string file = @"D:\blabz_fellowship\AddressBook\AddressBook\AddressBook\AddressBook.txt";
+            string keyline = "";
+            foreach (string key in multipleAddressBook.Keys)
+            {
+                keyline = "Details under category -- " + key +"\n";
+                File.AppendAllText(file, keyline);
+                foreach (var item in multipleAddressBook[key])
+                {
+                    File.AppendAllText(file,"Contact Details of  -" + item.FirstName + "\n");
+                    File.AppendAllText(file, "Last Name          -" + item.LastName + "\n");
+                    File.AppendAllText(file, "Address            -" + item.Address + "\n");
+                    File.AppendAllText(file, "City               -" + item.City + "\n");
+                    File.AppendAllText(file, "State              -" + item.State + "\n");
+                    File.AppendAllText(file, "Zipcode            -" + item.PostalCode + "\n");
+                    File.AppendAllText(file, "Phone No           -" + item.PhoneNo + "\n");
+                    File.AppendAllText(file, "Email Id           -" + item.Email + "\n");
+
+                }
+            }
+        }
+        public void ReadDetailsFromFile()
+        {
+            string file = @"D:\blabz_fellowship\AddressBook\AddressBook\AddressBook\AddressBook.txt";
+            if (File.Exists(file))
+            {
+                string[] contents = File.ReadAllLines(file);
+                foreach (string item in contents)
+                {
+                    Console.WriteLine(item);
+                }
+                return;
+            }
+            Console.WriteLine("File doesn't Exist!!");
+        }
     }
 }

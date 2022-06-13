@@ -1,0 +1,37 @@
+Details under category -- Friend
+Contact Details of  -Hemant
+Last Name          -B
+Address            -asha nivas
+City               -chennai
+State              -TN
+Zipcode            -789987
+Phone No           -999887768
+Email Id           -hm@g.in
+Details under category -- Family
+Contact Details of  -arul
+Last Name          -guna
+Address            -a st
+City               -salem
+State              -TN
+Zipcode            -678788
+Phone No           -88997767
+Email Id           -arul@gm.com
+Details under category -- Colleague
+Contact Details of  -nandha
+Last Name          -g
+Address            -race course rd
+City               -kovai
+State              -TN
+Zipcode            -640001
+Phone No           -77886678
+Email Id           -ng@g.in
+
+Details under category -- Family
+Contact Details of  -jishi
+Last Name          -K
+Address            -jayes bhavan
+City               -kannur
+State              -kerala
+Zipcode            -670008
+Phone No           -898787689
+Email Id           -jkm@as.in
