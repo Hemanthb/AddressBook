@@ -23,5 +23,24 @@ namespace AddressBook
             }
 
         }
+
+        public void DeserializeJsonData()
+        {
+            string jsonFile = @"D:\blabz_fellowship\AddressBook\AddressBook\AddressBook\JsonAddressBook.json";
+            string jsonData = File.ReadAllText(jsonFile);
+            List<ContactPerson> contact_person = JsonSerializer.Deserialize<List<ContactPerson>>(jsonData);
+            foreach (var person in contact_person)
+            {
+                Console.WriteLine("Contact Details of -" + person.FirstName);
+                Console.WriteLine("Last Name          -" + person.LastName);
+                Console.WriteLine("Address            -" + person.Address);
+                Console.WriteLine("City               -" + person.City);
+                Console.WriteLine("State              -" + person.State);
+                Console.WriteLine("Zipcode            -" + person.PostalCode);
+                Console.WriteLine("Phone No           -" + person.PhoneNo);
+                Console.WriteLine("Email Id           -" + person.Email);
+                Console.WriteLine();
+            }
+        }
     }
 }
