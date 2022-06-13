@@ -8,7 +8,7 @@ namespace AddressBook {
         {
             AddressBook.ContactPerson person = new AddressBook.ContactPerson();
             AddressBook.AddressBookDetails details = new AddressBook.AddressBookDetails();
-            
+            AddressBook.JsonSerializeDeserialize serializeDeserialize = new AddressBook.JsonSerializeDeserialize();
             string yesOrNo = "y";
             while (yesOrNo == "y")
             {
@@ -65,6 +65,9 @@ namespace AddressBook {
                         break;
                     case 14:
                         details.ReadCsvFile();
+                        break;
+                    case 15:
+                        serializeDeserialize.SerializeData(details);
                         break;
                     default:
                         Console.Write("Enter a valid option.\n");

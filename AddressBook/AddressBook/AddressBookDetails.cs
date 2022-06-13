@@ -12,7 +12,7 @@ namespace AddressBook
     {
         ContactPerson cp = new ContactPerson();
         List<ContactPerson> personDetails = new List<ContactPerson>();
-        Dictionary<string, List<ContactPerson>> multipleAddressBook = new Dictionary<string, List<ContactPerson>>();
+        public Dictionary<string, List<ContactPerson>> multipleAddressBook = new Dictionary<string, List<ContactPerson>>();
         Dictionary<string, List<string>> cityAndPersons = new Dictionary<string, List<string>>();
         Dictionary<string, List<string>> stateAndPersons = new Dictionary<string, List<string>>();
         public void CreateContacts(ContactPerson contact)
