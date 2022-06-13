@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +17,7 @@ namespace AddressBook
         Dictionary<string, List<string>> stateAndPersons = new Dictionary<string, List<string>>();
         public void CreateContacts(ContactPerson contact)
         {
-            
+
             Console.WriteLine("Enter First Name: ");
             contact.FirstName = Console.ReadLine();
 
@@ -42,8 +44,8 @@ namespace AddressBook
 
             //Checks Whether the contact exist already by searching for the first name
             ContactPerson cp = personDetails.FirstOrDefault(x => x.Equals(contact));
-            
-            if(cp == null)
+
+            if (cp == null)
             {
                 personDetails.Add(contact);
             }
@@ -54,17 +56,17 @@ namespace AddressBook
 
         }
 
-       
+
         public void EditContacts()
         {
             Console.WriteLine("Enter First Name of a person to edit details: ");
             string firstName = Console.ReadLine();
-            ContactPerson editContact =  personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName.ToLower());
-            
-            if(editContact != null)
+            ContactPerson editContact = personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName.ToLower());
+
+            if (editContact != null)
             {
                 string opt = "y";
-                while(opt == "y")
+                while (opt == "y")
                 {
 
                     Console.WriteLine("Enter the field you want to edit:\n1.First Name\n2.last Name\n3.Address\n4.city\n5.state\n6.zip\n7.Phone No.\n8.Email");
@@ -127,7 +129,7 @@ namespace AddressBook
             string firstName = Console.ReadLine();
 
             ContactPerson deleteContact = personDetails.FirstOrDefault(x => x.FirstName.ToLower() == firstName.ToLower());
-            if (deleteContact!=null)
+            if (deleteContact != null)
             {
                 Console.WriteLine("Are you sure you want to remove this person from your address book? (Y/N)" + deleteContact.FirstName);
 
@@ -140,14 +142,14 @@ namespace AddressBook
             {
                 Console.WriteLine("No Data Exist!!");
             }
-            
+
         }
 
         public void AddMultipleContacts()
         {
             Console.WriteLine("Enter the number of contacts you want to add:");
             int addContacts = Convert.ToInt32(Console.ReadLine());
-            
+
             while (addContacts > 0)
             {
                 ContactPerson contactPerson = new ContactPerson();
@@ -159,7 +161,7 @@ namespace AddressBook
 
         public void AddMultipleAddressBooks()
         {
-            
+
             Console.WriteLine("Enter the number of address book you want to add: ");
             int noOfBooks = Convert.ToInt32(Console.ReadLine());
             while (noOfBooks > 0)
@@ -170,7 +172,7 @@ namespace AddressBook
                 AddMultipleContacts();
                 if (multipleAddressBook.ContainsKey(groupName))
                 {
-                    foreach(var contact in personDetails)
+                    foreach (var contact in personDetails)
                         multipleAddressBook[groupName].Add(contact);
 
                 }
@@ -181,28 +183,28 @@ namespace AddressBook
                 noOfBooks--;
             }
             DisplayAddressBookDetails();
-            
+
         }
 
         public void SearchContacts(string searchValue)
         {
-            foreach(var contactPerson in multipleAddressBook.Values)
+            foreach (var contactPerson in multipleAddressBook.Values)
             {
-                 
-                List<ContactPerson> personByCity = contactPerson.FindAll(x=>x.City.ToLower()==searchValue.ToLower());
-                if(personByCity.Count()==0)
+
+                List<ContactPerson> personByCity = contactPerson.FindAll(x => x.City.ToLower() == searchValue.ToLower());
+                if (personByCity.Count() == 0)
                 {
 
                     List<ContactPerson> personByState = contactPerson.FindAll(x => x.State.ToLower() == searchValue.ToLower());
-                    if(personByState == null)
+                    if (personByState == null)
                     {
                         Console.WriteLine("No Contact Details Exist for the given city/state -- {0}", searchValue);
                         return;
                     }
                     else
                     {
-                        Console.WriteLine("+++++++ Details of People from state of {0} +++++++",searchValue);
-                        foreach(ContactPerson person in personByState)
+                        Console.WriteLine("+++++++ Details of People from state of {0} +++++++", searchValue);
+                        foreach (ContactPerson person in personByState)
                         {
                             Console.WriteLine("First Name: " + person.FirstName + " Last Name: " + person.LastName);
                         }
@@ -257,8 +259,8 @@ namespace AddressBook
                 Console.WriteLine("Details Of people belonging to City :-->> " + key);
                 Console.WriteLine();
                 int count = 0;
-                cityAndPersons[key].ForEach(x=>Console.WriteLine(x));
-                
+                cityAndPersons[key].ForEach(x => Console.WriteLine(x));
+
             }
             foreach (var key in stateAndPersons.Keys)
             {
@@ -272,18 +274,18 @@ namespace AddressBook
         {
             if (cityAndPersons.ContainsKey(searchItem))
             {
-                Func<int,int> count = x =>
+                Func<int, int> count = x =>
                 {
                     foreach (var value in cityAndPersons[searchItem])
                         x += 1;
                     return x;
                 };
                 Console.WriteLine("Count of Contacts in city - " + searchItem + " ---> " + count(0));
-                
+
             }
             if (stateAndPersons.ContainsKey(searchItem))
             {
-                
+
                 Func<int, int> count = x =>
                 {
                     foreach (var value in stateAndPersons[searchItem])
@@ -338,11 +340,11 @@ namespace AddressBook
             string keyline = "";
             foreach (string key in multipleAddressBook.Keys)
             {
-                keyline = "Details under category -- " + key +"\n";
+                keyline = "Details under category -- " + key + "\n";
                 File.AppendAllText(file, keyline);
                 foreach (var item in multipleAddressBook[key])
                 {
-                    File.AppendAllText(file,"Contact Details of  -" + item.FirstName + "\n");
+                    File.AppendAllText(file, "Contact Details of  -" + item.FirstName + "\n");
                     File.AppendAllText(file, "Last Name          -" + item.LastName + "\n");
                     File.AppendAllText(file, "Address            -" + item.Address + "\n");
                     File.AppendAllText(file, "City               -" + item.City + "\n");
@@ -367,6 +369,35 @@ namespace AddressBook
                 return;
             }
             Console.WriteLine("File doesn't Exist!!");
+        }
+
+        public void WriteToCsvFile()
+        {
+            string file = @"D:\blabz_fellowship\AddressBook\AddressBook\AddressBook\AddressBook.csv";
+            //using (var stream = File.Open(@"D:\blabz_fellowship\AddressBook\AddressBook\AddressBook\AddressBook.csv", FileMode.Append))
+            var configPersons = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true
+            };
+            using (var writer = new StreamWriter(file))
+            using (var csvWriter = new CsvWriter(writer, configPersons))
+            {
+                foreach (string key in multipleAddressBook.Keys)
+                {
+                    csvWriter.WriteRecords(multipleAddressBook[key]);
+
+                }
+            }
+        }
+        public void ReadCsvFile()
+        {
+            string file = @"D:\blabz_fellowship\AddressBook\AddressBook\AddressBook\AddressBook.csv";
+            var reader = new StreamReader(File.OpenRead(file));
+            while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                Console.WriteLine(line);
+            }
         }
     }
 }
